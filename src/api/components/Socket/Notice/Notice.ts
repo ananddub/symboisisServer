@@ -41,7 +41,7 @@ export const getChat = async (
       sqlQueryStatus(admno),
       sqlQueryStatus(usersel),
     ]);
-    console.log(seen, unseen);
+    // console.log(seen, unseen);
     socket.emit("getchat", {
       seen: seen.data,
       unseen: unseen.data,
@@ -65,6 +65,6 @@ export const getLength = async (
                     WHERE (a.to = '${response.admno}' OR a.to = 'all' or a.class='${response.class}' AND (a.sec='all' or a.sec='${response.sec}')) 
                     AND u.messageid IS NULL ORDER BY a.messageid DESC;`;
   const [unseen]: any = await Promise.all([sqlQueryStatus(usersel)]);
-  console.log("length :", unseen?.data[0]?.c);
+  // console.log("length :", unseen?.data[0]?.c);
   socket.emit("getlength", { unseen: unseen?.data[0]?.c });
 };

@@ -46,7 +46,7 @@ async function details(admno: string, session: string) {
         `SELECT * FROM tbl_monthlyfeesetup WHERE class="${admission[0].class}";`
       ),
     ]);
-  console.log(examfee, miscfee, stdTransDetail);
+  // console.log(examfee, miscfee, stdTransDetail);
   const objects = {
     tbl_admission: admission[0],
     tbl_transfee: transportFee[0],

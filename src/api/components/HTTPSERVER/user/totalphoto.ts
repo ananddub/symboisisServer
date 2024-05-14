@@ -47,7 +47,7 @@ function calulatePhotse(data: any) {
     photodone: 0,
     totalSec: [],
   };
-  console.log(data);
+  // console.log(data);
   for (let x of data) {
     if (obj[x.section] === undefined) {
       obj[x.section] = {
