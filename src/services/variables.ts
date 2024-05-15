@@ -6,13 +6,13 @@ export const databaseID = {
   host: "localhost",
   user: "root",
   password: "root",
-  database: "u932299896_sisdbApp",
+  database: "u932299896_sisdb",
 };
 export const localDatabase = {
   host: "localhost",
   user: "root",
   password: "root",
-  database: "u932299896_sisdbApp",
+  database: "u932299896_sisdb",
 };
 export const IMAGEADD = "../../uploads";
 export const PORT = 4000;
