@@ -10,6 +10,7 @@ import { getTotalPhoto } from "./components/HTTPSERVER/user/totalphoto";
 import { basicDetail } from "./components/HTTPSERVER/user/userDetail";
 import { socketRoutes } from "./components/Socket/routes";
 import { multerImageupload } from "./middleware/multerImageupload";
+import { multerDocumentupload } from "./middleware/multerImageupload";
 import { app, io } from "./server";
 const path = require("path");
 
@@ -21,6 +22,15 @@ app.get("/BasicDetails", basicDetail);
 app.get("/searchstd", searchStd);
 app.get("/dues", dueslist);
 app.get("/totalphoto", getTotalPhoto);
+app.post(
+  "/documents",
+  multerDocumentupload.single("document"),
+  (req: any, res: any) => {
+    console.log("called", req.param);
+    console.log("saved : ", req.file);
+    res.status(200).send("success");
+  }
+);
 app.get("/", (req: any, res: any) => {
   res.sendFile("../../dist/index.html");
 });

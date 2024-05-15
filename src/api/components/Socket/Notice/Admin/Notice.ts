@@ -10,7 +10,7 @@ export const getAdminChat = async (
   const query = "SELECT  *  FROM tbl_adminannounce ORDER BY messageid DESC";
   const data: any = await sqlQuery(query);
   console.log(data);
-  socket.emit("getAdminChat", { data: data.data });
+  socket.emit("getAdminChat", { data: data });
 };
 export const adminSendchat = async (
   socket: Socket,
@@ -20,8 +20,8 @@ export const adminSendchat = async (
   if (Array.isArray(response.to) === true && response.to[0] !== "all") {
     let i = 0;
     for (let admno of response.to) {
-      const insert = `INSERT INTO tbl_adminannounce (message,\`from\`, \`to\`,name,fname,mclass,msec,mroll) 
-            VALUES ('${response.message}','${response.from}','${admno}','${response.name[i]}','${response.fname[i]}','${response.mclass[i]}','${response.msec[i]}','${response.mroll[i]}');`;
+      const insert = `INSERT INTO tbl_adminannounce (message,\`from\`, \`to\`,name,fname,mclass,msec,mroll,file) 
+            VALUES ('${response.message}','${response.from}','${admno}','${response.name[i]}','${response.fname[i]}','${response.mclass[i]}','${response.msec[i]}','${response.mroll[i]}','${response.file}');`;
       await sqlQueryUpdate(insert);
       i += 1;
     }
@@ -36,8 +36,8 @@ export const adminSendchat = async (
     }
   } else if (response.class !== "") {
     console.log("we entered");
-    const insert = `INSERT INTO tbl_adminannounce (message,\`from\`,\`to\`,class,sec) 
-                  VALUES ('${response.message}','${response.from}','${response.class}','${response.class}','${response.sec}');`;
+    const insert = `INSERT INTO tbl_adminannounce (message,\`from\`,\`to\`,class,sec,file) 
+                  VALUES ('${response.message}','${response.from}','${response.class}','${response.class}','${response.sec}','${response.file}');`;
     console.log("status :", await sqlQueryUpdate(insert));
     io.emit("notice", "check message");
     io.emit("getAdminStatus");

@@ -30,7 +30,7 @@ export const getStdRegDetail = async (
   response: { class: string; sec: string; fmob: string; wmob: string }
 ) => {
   try {
-    // console.log(response);
+    console.log(response);
     if (response.class === "" || response.class === undefined) {
       socket.emit("getStdRegDetail", []);
       return null;
@@ -52,10 +52,10 @@ export const getStdRegDetail = async (
         ? `and whatsapp="${response.wmob}"`
         : "";
     const query = `SELECT admno,name,class,section,roll,fname,ptown,fmob,whatsapp FROM tbl_admission where ${clas} ${sec} ${fmob} ${wmob} and session="${curSession()}" and active=1  ORDER BY roll `;
-    // console.log([clas, sec, fmob, wmob]);
+    console.log([clas, sec, fmob, wmob]);
     const data: any = (await sqlQueryStatus(query)).data;
     socket.emit("getStdRegDetail", data === false ? [] : data);
-    // console.log("");
+    console.log("");
   } catch {
     socket.emit("getStdRegDetail", []);
   }

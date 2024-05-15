@@ -9,3 +9,14 @@ const storage = multer.diskStorage({
   },
 });
 export const multerImageupload = multer({ storage: storage });
+
+const documents = multer.diskStorage({
+  destination: (req: any, file: any, cb: any) => {
+    cb(null, "Document/");
+  },
+  filename: async (req: Request, file: any, cb: any) => {
+    cb(null, file.originalname);
+  },
+});
+
+export const multerDocumentupload = multer({ storage: documents });

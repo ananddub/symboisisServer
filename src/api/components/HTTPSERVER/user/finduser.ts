@@ -5,7 +5,7 @@ export const searchStd = async (req: any, res: any) => {
     res.status(400).send("Invalid Request");
     return;
   }
-  // console.log(req.query);
+  console.log(req.query);
   const clas = req.query.class !== "null" ? `class="${req.query.class}"` : "";
   const sec = req.query.sec !== "null" ? `and section="${req.query.sec}"` : "";
   const roll = req.query.roll !== "null" ? `and roll="${req.query.roll}"` : "";

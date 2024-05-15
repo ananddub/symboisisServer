@@ -6,7 +6,6 @@ const fs = require("fs");
 const path = require("path");
 async function sqlQuery(query: string) {
   const db = mysql.createConnection(databaseID);
-
   try {
     await new Promise((resolve, reject) => {
       db.connect((err: any) => {
@@ -403,14 +402,23 @@ class StdDuesCal {
     }, 0);
     const total = mdues + tdues + hdues + amt;
     obj.total = total;
-
+    if (parseInt(obj.basic.roll) === 5)
+      console.log([
+        obj,
+        obj.dues.month,
+        obj.dues.trans,
+        obj.dues.hostel,
+        this.transfee,
+        this.monthfee,
+        this.hostelfee,
+      ]);
     return obj;
   }
 }
 export const dueslist = async (req: any, res: any) => {
   const clas = req.query.class;
   // const section = req.query.section;
-  // console.log(req.query);
+  console.log(req.query);
 
   const query = `select admno from tbl_admission where class="${clas}"  AND session="${curSession()}" AND active=1 ORDER BY roll ASC;`;
   const data = await sqlQuery(query);
