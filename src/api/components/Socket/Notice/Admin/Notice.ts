@@ -2,6 +2,8 @@ import { Socket } from "socket.io";
 import { dbActive } from "../../../../../services/socketFun";
 import { io } from "../../../../server";
 import { sqlQuery, sqlQueryUpdate } from "../../../../../services/sqlfunctoin";
+import { getImage } from "../../../../../services/ImageSaveRetrive";
+import { getDoc } from "../../../../../services/funDocument";
 
 export const getAdminChat = async (
   socket: Socket,
@@ -9,6 +11,10 @@ export const getAdminChat = async (
 ) => {
   const query = "SELECT  *  FROM tbl_adminannounce ORDER BY messageid DESC";
   const data: any = await sqlQuery(query);
+  for (let x of data) {
+    if (x.file !== null && x.file) x.imagepath = getDoc(x.file);
+    else x.imagepath = "";
+  }
   console.log(data);
   socket.emit("getAdminChat", { data: data });
 };

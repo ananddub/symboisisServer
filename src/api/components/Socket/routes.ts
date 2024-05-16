@@ -4,7 +4,7 @@ import { getImagewithDetail, getStdRegDetail } from "./Notice/Admin/stddetail";
 import { adminSendchat, getAdminChat } from "./Notice/Admin/Notice";
 import { getChat, getLength, seen } from "./Notice/Notice";
 import { rejister } from "./Notice/register";
-
+import { getEmpImageDetail } from "./Image/getImage";
 export const socketRoutes = (socket: Socket) => {
   console.log("A user connected");
   socket.on(
@@ -72,7 +72,9 @@ export const socketRoutes = (socket: Socket) => {
       getStdRegDetail(socket, response);
     }
   );
-
+  socket.on("getEmpImage", async () => {
+    getEmpImageDetail(socket);
+  });
   socket.on("disconnect", (): void => {
     for (let i = 0; i < dbActive.length; i++) {
       if (dbActive[i].socketid == socket.id) {

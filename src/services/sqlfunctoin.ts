@@ -148,11 +148,14 @@ export async function sqlQueryStatus(query: string) {
 
 export async function sqlQueryUpdate(query: string) {
   const db = mysql.createConnection(databaseID);
-
+  console.log("updated process :", query);
   try {
     await new Promise((resolve, reject) => {
       db.connect((err: any) => {
-        if (err) reject(err);
+        if (err) {
+          console.log(err);
+          reject(err);
+        }
         resolve("done");
         console.log("Connected to database");
       });

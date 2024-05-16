@@ -14,5 +14,9 @@ export const localDatabase = {
   password: "root",
   database: "u932299896_sisdb",
 };
-export const IMAGEADD = "../../uploads";
+export const IMAGEADD = "../../uploads/std";
+export const EMPIMGADD = "../../uploads/emp";
+
+export const DOCADD = "../../Document";
+
 export const PORT = 4000;
