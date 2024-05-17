@@ -40,16 +40,19 @@ export const adminSendchat = async (
         }
       }
     }
+  } else if (Array.isArray(response.to) === true && response.to[0] === "all") {
+    console.log("emited :", response.message);
+    io.emit("notice", { message: response.message });
+    const insert = `INSERT INTO tbl_adminannounce (message,\`from\`, \`to\`,file) 
+    VALUES ('${response.message}','${response.from}','all','${response.file}');`;
+    await sqlQueryUpdate(insert);
+    io.emit("getAdminStatus");
   } else if (response.class !== "") {
     console.log("we entered");
     const insert = `INSERT INTO tbl_adminannounce (message,\`from\`,\`to\`,class,sec,file) 
                   VALUES ('${response.message}','${response.from}','${response.class}','${response.class}','${response.sec}','${response.file}');`;
     console.log("status :", await sqlQueryUpdate(insert));
     io.emit("notice", "check message");
-    io.emit("getAdminStatus");
-  } else if (response.to[0] === "all") {
-    console.log("emited :", response.message);
-    io.emit("notice", { message: response.message });
     io.emit("getAdminStatus");
   }
   socket.disconnect();
